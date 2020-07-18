@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple BBS</title>
+    <link rel="stylesheet" href="/static/css/bootstrap-reboot.min.css">
+    <link rel="stylesheet" href="/static/css/stylesheet.css">
+    <link rel="shortcut icon" href="/static/favicon.ico" type="image/x-icon">
+    <script src="https://kit.fontawesome.com/0e24b8315a.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <header>
+        <nav class="container navbar">
+            <!-- Logo(Link to Home) -->
+            <a class="navbar-brand" href="/">Simple BBS</a>
+        </nav>
+    </header>
+
+    <main>
+        <div class="container">
+            {{#with thread1}}
+            <div>
+                <div>{{this.updated_at}}</div>
+            </div>
+            {{/with}}
+            {{#with thread2}}
+            <div style="margin-top: 20px">
+                <div>{{this.updated_at}}</div>
+            </div>
+            {{/with}}
+            {{#with thread3}}
+            <div style="margin-top: 20px">
+                <div>{{this.updated_at}}</div>
+            </div>
+            {{/with}}
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2020 tazeen</p>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+
+</html>

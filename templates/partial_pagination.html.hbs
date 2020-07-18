@@ -1,0 +1,35 @@
+{{!-- TODO: スレタイ検索をするときはkeywordをquery stringに入れる --}}
+{{#*inline "keyword_param"~}}
+    {{#if ../keyword ~}}
+        &keyword={{../keyword}}
+    {{~/if}}
+{{~/inline}}
+{{#*inline "Prev"}}
+    {{#if number}}
+        <li class="pagination-item"><a href="/threads?page={{number}}{{> keyword_param}}" class="page-link"><i class="fas fa-angle-left"></i></a></li>
+    {{else}}
+        <li class="pagination-item"><span class="page-link disabled"><i class="fas fa-angle-left"></i></span></li>
+    {{/if}}
+{{/inline}}
+{{#*inline "Next"}}
+    {{#if number}}
+        <li class="pagination-item"><a href="/threads?page={{number}}{{> keyword_param}}" class="page-link"><i class="fas fa-angle-right"></i></a></li>
+    {{else}}
+        <li class="pagination-item"><span class="page-link disabled"><i class="fas fa-angle-right"></i></span></li>
+    {{/if}}
+{{/inline}}
+{{#*inline "Number"}}
+    {{#if active}}
+        <li class="pagination-item"><span class="page-link active">{{number}}</span></li>
+    {{else}}
+        <li class="pagination-item"><a href="/threads?page={{number}}{{> keyword_param}}" class="page-link">{{number}}</a></li>
+    {{/if}}
+{{/inline}}
+{{#*inline "Dots"}}
+    <li class="pagination-item">...</li>
+{{/inline}}
+<ul class="pagination">
+    {{#each pagination as | pgn |}}
+        {{> (pgn.type)}}
+    {{/each}}
+</ul>

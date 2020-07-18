@@ -1,0 +1,23 @@
+version: "3.8"
+
+services:
+  mydb:
+    image: postgres:12.3-alpine
+    environment:
+      POSTGRES_PASSWORD: "secret"
+      POSTGRES_INITDB_ARGS: "--encoding=UTF-8 --locale=C"
+      TZ: Asia/Tokyo
+    volumes:
+      - data-vol:/var/lib/postgresql/data
+      - ./docker/initdb:/docker-entrypoint-initdb.d
+    ports:
+      - 5432:5432
+  sass:
+    build: docker/sass
+    # image: simple_bbs_sass
+    init: true
+    volumes:
+      - ${PWD}:/app
+
+volumes:
+  data-vol:
