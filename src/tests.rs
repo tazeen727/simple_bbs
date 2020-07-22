@@ -21,7 +21,7 @@ use std::convert::TryFrom;
 use crate::basic_types::*;
 use crate::models::*;
 use crate::forms::*;
-use crate::functions::*;
+use crate::dbaccess::*;
 
 #[test]
 fn test_create_new_thread() {

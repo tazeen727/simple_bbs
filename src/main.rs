@@ -9,7 +9,7 @@ use rocket::response::Redirect;
 
 use simple_bbs::{rocket_app, DbConn};
 use simple_bbs::basic_types::*;
-use simple_bbs::functions;
+use simple_bbs::dbaccess;
 use simple_bbs::models::*;
 use simple_bbs::render::*;
 use simple_bbs::globals;
@@ -33,7 +33,7 @@ fn show_threads(conn: DbConn, keyword :Option<NonEmptyString>, page: Option<Resu
     }
 
     let page = page.unwrap();
-    let (thread_count, threads) = functions::get_threads(&conn, page, &keyword)?;
+    let (thread_count, threads) = dbaccess::get_threads(&conn, page, &keyword)?;
 
     let now = Utc::now();
     let threads: Vec<_> = threads.into_iter().map(|t| ThreadCtx::from(t, now)).collect();

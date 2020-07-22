@@ -9,7 +9,7 @@ pub mod forms;
 pub mod models;
 pub mod render;
 pub mod schema;
-pub mod functions;
+pub mod dbaccess;
 pub mod globals;
 #[cfg(test)]
 mod tests;
