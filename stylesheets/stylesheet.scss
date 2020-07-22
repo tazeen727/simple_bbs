@@ -133,8 +133,8 @@ div.threads {
     padding-top: 1.6rem;
 
     .thread-row {
+        padding-top: 0.6rem;
         padding-bottom: 0.6rem;
-        margin-bottom: 0.6rem;
         border-bottom: 0.5px solid $accent-color1;
 
         .thread-info {
@@ -148,7 +148,6 @@ div.threads {
         }
 
         &:first-child {
-            padding-top: 0.6rem;
             border-top: 0.5px solid $accent-color1;
         }
     }
