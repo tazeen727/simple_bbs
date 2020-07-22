@@ -33,7 +33,8 @@ fn show_threads(conn: DbConn, keyword :Option<NonEmptyString>, page: Option<Resu
     }
 
     let page = page.unwrap();
-    let (thread_count, threads) = dbaccess::get_threads(&conn, page, &keyword)?;
+    let thread_count = 1;
+    let threads = dbaccess::get_threads(&conn, &keyword)?;
 
     let now = Utc::now();
     let threads: Vec<_> = threads.into_iter().map(|t| ThreadCtx::from(t, now)).collect();

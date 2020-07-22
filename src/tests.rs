@@ -47,7 +47,7 @@ fn test_create_new_post() {
         };
         post_to_thread(conn, &post_form)?;
 
-        let (_, threads) = get_threads(conn, PageNumber::default(), &None)?;
+        let threads = get_threads(conn, &None)?;
         let posts = get_posts(conn, thread_id)?;
         Ok((posts, threads))
     });
@@ -60,10 +60,9 @@ fn test_create_new_post() {
 
 #[test]
 fn test_get_threads() {
-    let (_, threads) = with_conn(|conn| {
-        get_threads(conn, PageNumber::try_from(2).unwrap(), &None)
+    let threads = with_conn(|conn| {
+        get_threads(conn, &None)
     });
-    assert_eq!(threads.len(), 20);
     assert_eq!(threads[0].thread_id, 56);
     assert!(threads[0].thread_title.contains("Chromebook Part42"));
 }

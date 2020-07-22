@@ -1,5 +1,4 @@
 use crate::Result;
-use crate::basic_types::*;
 use crate::forms::*;
 use crate::models::*;
 use crate::schema;
@@ -48,7 +47,7 @@ pub fn post_to_thread(conn: &DbConn, post_form: &PostForm) -> Result<Post> {
     Ok(p)
 }
 
-pub fn get_threads(conn: &DbConn, page: PageNumber, keyword: &Option<String>) -> Result<(i32, Vec<Thread>)> {
+pub fn get_threads(conn: &DbConn, keyword: &Option<String>) -> Result<Vec<Thread>> {
     use schema::threads::dsl::*;
     use crate::globals;
 
@@ -61,16 +60,12 @@ pub fn get_threads(conn: &DbConn, page: PageNumber, keyword: &Option<String>) ->
         query = query.filter(thread_title.like(k));
     }
 
-    let mut ts: Vec<Thread> = query
+    let results = query
         .order(updated_at.desc())
         .limit((globals::THREADS_PER_PAGE * globals::MAX_PAGE_NUMBER) as i64)
         .load(&**conn)?;
 
-    let count = ts.len() as i32;
-    let offset = page.offset();
-    ts.drain(..offset);
-    ts.truncate(globals::THREADS_PER_PAGE as usize);
-    Ok((count, ts))
+    Ok(results)
 }
 
 pub fn get_thread(conn: &DbConn, target_thread_id: i32) -> Result<Thread> {
