@@ -4,12 +4,12 @@
 
 use chrono::prelude::*;
 use rocket_contrib::templates::Template;
+use rocket::Request;
 use rocket::response::Redirect;
 
 use simple_bbs::{rocket_app, DbConn};
 use simple_bbs::basic_types::*;
 use simple_bbs::functions;
-// use simple_bbs::forms::*;
 use simple_bbs::models::*;
 use simple_bbs::render::*;
 use simple_bbs::globals;
@@ -71,13 +71,21 @@ fn post_comment(conn: DbConn, thread_id: i32) -> String {
     format!("your comment was posted on thread[{}]", thread_id)
 }
 
+#[catch(404)]
+fn not_found(req: &Request) -> Template {
+    Template::render("not_found", ()) 
+}
+
 fn main() {
-    rocket_app().mount("/", routes![
-        index,
-        show_threads,
-        show_posts,
-        create_new_thread,
-        post_comment,
-        test_page,
-    ]).launch();
+    rocket_app()
+        .mount("/", routes![
+            index,
+            show_threads,
+            show_posts,
+            create_new_thread,
+            post_comment,
+            test_page,
+        ])
+        .register(catchers![not_found])
+        .launch();
 }
