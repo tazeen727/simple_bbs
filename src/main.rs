@@ -24,13 +24,13 @@ fn index(conn: DbConn) -> Result<Success, BoxError> {
 #[get("/threads?<keyword>&<page>")]
 fn show_threads(conn: DbConn, keyword :Option<NonEmptyString>, page: Option<Result<PageNumber, ()>>) -> Result<Success, BoxError> {
     let page = page.unwrap_or(Ok(PageNumber::default()));
-    let keyword = keyword.map(|s| s.into());
 
     if let Err(_) = page {
         let query = keyword.map(|s| format!("?keyword={}", s)).unwrap_or(String::default());
         let uri = format!("/threads{}", query);
         return Ok(Success::Redirect(Redirect::to(uri)));
     }
+    let keyword = keyword.as_ref().map(|s| &***s); // Option<NonEmptyString> -> Option<&str>
 
     let page = page.unwrap();
     let thread_count = 1;

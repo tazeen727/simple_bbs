@@ -47,13 +47,13 @@ pub fn post_to_thread(conn: &DbConn, post_form: &PostForm) -> Result<Post> {
     Ok(p)
 }
 
-pub fn get_threads(conn: &DbConn, keyword: &Option<String>) -> Result<Vec<Thread>> {
+pub fn get_threads(conn: &DbConn, keyword: &Option<&str>) -> Result<Vec<Thread>> {
     use schema::threads::dsl::*;
     use crate::globals;
 
     let mut query = threads.into_boxed();
 
-    let keyword = keyword.as_deref()
+    let keyword = keyword
         .map(|k| k.replace("%", r"\%").replace("_", r"\_"))
         .map(|k| format!("%{}%", k));
     if let Some(k) = keyword {
