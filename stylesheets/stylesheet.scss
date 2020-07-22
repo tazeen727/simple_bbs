@@ -289,6 +289,21 @@ ul.pagination {
     }
 }
 
+/*--- 404 Not Found ---*/
+.not-found {
+    margin-bottom: 350px;
+
+    color: $accent-color2;
+
+    h3 {
+        font-size: 1.8rem;
+    }
+
+    p {
+        font-size: 1.4rem;
+    }
+}
+
 /*--- footer ---*/
 footer {
     margin-top: 1.5rem;

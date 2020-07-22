@@ -58,30 +58,7 @@ fn show_posts(conn: DbConn, thread_id: i32) -> String {
 
 #[get("/test")]
 fn test_page(conn: DbConn) -> Template {
-    #[derive(serde::Serialize)]
-    struct Context {
-        thread1: Thread,
-        thread2: Thread,
-        thread3: Thread,
-        current_timestamp: DateTime<Utc>,
-    }
-
-    let mut thread1 = functions::get_thread(&conn, 59).unwrap();
-    let mut thread2 = functions::get_thread(&conn, 37).unwrap();
-    let mut thread3 = functions::get_thread(&conn, 50).unwrap();
-
-    thread1.updated_at = Utc.datetime_from_str("2020-07-01T08:53:08.340Z", "%+").unwrap();
-    thread2.updated_at = Utc.datetime_from_str("2020-06-30T22:53:08.123Z", "%+").unwrap();
-    thread3.updated_at = Utc.datetime_from_str("2020-07-01T21:00:08.789Z", "%+").unwrap();
-    let current_timestamp = Utc.datetime_from_str("2020-07-01T21:15:19.789Z", "%+").unwrap();
-
-    let context = Context {
-        thread1,
-        thread2,
-        thread3,
-        current_timestamp
-    };
-    Template::render("test", &context)
+    Template::render("not_found", ())
 }
 
 #[post("/thread")]
