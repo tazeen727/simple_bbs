@@ -1,7 +1,6 @@
 use crate::Result;
 use crate::basic_types::*;
 use crate::forms::*;
-use crate::globals;
 use crate::models::*;
 use crate::schema;
 use crate::DbConn;
@@ -51,6 +50,7 @@ pub fn post_to_thread(conn: &DbConn, post_form: &PostForm) -> Result<Post> {
 
 pub fn get_threads(conn: &DbConn, page: PageNumber, keyword: &Option<String>) -> Result<(i32, Vec<Thread>)> {
     use schema::threads::dsl::*;
+    use crate::globals;
 
     let mut query = threads.into_boxed();
 
